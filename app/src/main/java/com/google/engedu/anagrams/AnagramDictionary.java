@@ -39,8 +39,7 @@ public class AnagramDictionary {
                     sameLength.add(word);
                     sizeToWords.put(word.length(), sameLength);
                 } else {
-                    ArrayList<String> sameLength = sizeToWords.get(word.length());
-                    sameLength.add(word);
+                    sizeToWords.get(word.length()).add(word);
                 }
 
                 if (!lettersToWord.containsKey(sortLetters(word))) {
@@ -48,8 +47,7 @@ public class AnagramDictionary {
                     anagrams.add(word);
                     lettersToWord.put(sortLetters(word), anagrams);
                 } else {
-                    ArrayList<String> anagrams = lettersToWord.get(sortLetters(word));
-                    anagrams.add(word);
+                    lettersToWord.get(sortLetters(word)).add(word);
                 }
             }
         }
@@ -94,10 +92,15 @@ public class AnagramDictionary {
 
     public ArrayList<String> getAnagramsWithTwoMoreLetter(String word){
         ArrayList<String> result = new ArrayList<>();
-        for (char c : ALPHABET){
-            for(String entry:getAnagramsWithOneMoreLetter(word + c)){
-                if(isGoodWord(entry, word)){
-                    result.add(entry);
+        for (char c1 : ALPHABET){
+            for(char c2: ALPHABET) {
+                String longerString = sortLetters(word + c1+c2);
+                if (lettersToWord.containsKey(longerString)) {
+                    for (String entry : lettersToWord.get(longerString)) {
+                        if (isGoodWord(entry, word)) {
+                            result.add(entry);
+                        }
+                    }
                 }
             }
         }
