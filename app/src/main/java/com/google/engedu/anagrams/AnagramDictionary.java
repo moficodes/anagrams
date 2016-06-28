@@ -45,7 +45,7 @@ public class AnagramDictionary {
                 if (!lettersToWord.containsKey(sortLetters(word))) {
                     ArrayList<String> anagrams = new ArrayList<>();
                     anagrams.add(word);
-                    lettersToWord.put(sortLetters(word), anagrams);
+                     lettersToWord.put(sortLetters(word), anagrams);
                 } else {
                     lettersToWord.get(sortLetters(word)).add(word);
                 }
